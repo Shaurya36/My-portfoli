@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shaurya Pratap | Portfolio</title>
+  <meta name="description"
+    content="Personal portfolio of Shaurya Pratap – B.Tech CSE student at Silver Oak University and Co-founder of BePrompter." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { inter: ['Inter', 'sans-serif'], space: ['Space Grotesk', 'sans-serif'] },
+          colors: {
+            brand: { from: '#6366f1', to: '#a855f7' },
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'float-slow': 'float 9s ease-in-out infinite',
+            'glow': 'glow 3s ease-in-out infinite alternate',
+            'slide-up': 'slideUp 0.7s ease forwards',
+            'fade-in': 'fadeIn 1s ease forwards',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+          },
+          keyframes: {
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-18px)' } },
+            glow: { '0%': { boxShadow: '0 0 20px #6366f155' }, '100%': { boxShadow: '0 0 60px #a855f755' } },
+            slideUp: { '0%': { opacity: 0, transform: 'translateY(30px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0f;
+      color: #e2e8f0;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2);
+    }
+
+    .skill-bar {
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+      transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    #navbar {
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .tag {
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 999px;
+      padding: 2px 12px;
+      font-size: 0.78rem;
+    }
+
+    ::selection {
+      background: #6366f144;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0a0f;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #6366f1;
+      border-radius: 99px;
+    }
+
+    .section-reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .section-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-input {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 12px 16px;
+      outline: none;
+      color: #e2e8f0;
+      width: 100%;
+      transition: border 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .contact-input:focus {
+      border-color: #6366f1;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 1.5px solid rgba(99, 102, 241, 0.6);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(99, 102, 241, 0.15);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════ NAVBAR ══════════════ -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="#home" class="font-space font-bold text-xl gradient-text tracking-tight">SP.</a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#about" class="hover:text-white transition">About</a>
+        <a href="#skills" class="hover:text-white transition">Skills</a>
+        <a href="#projects" class="hover:text-white transition">Projects</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
+      </div>
+      <a href="#contact" class="btn-primary text-white text-sm font-semibold px-5 py-2 rounded-full">Hire Me</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <!-- ambient orbs -->
+    <div class="orb w-96 h-96 bg-indigo-600 opacity-20 top-10 -left-32 animate-pulse-slow"></div>
+    <div class="orb w-80 h-80 bg-purple-600 opacity-15 bottom-20 -right-20 animate-pulse-slow"
+      style="animation-delay:2s"></div>
+    <div
+      class="orb w-60 h-60 bg-pink-600 opacity-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse-slow"
+      style="animation-delay:1s"></div>
+
+    <!-- grid overlay -->
+    <div class="absolute inset-0 opacity-[0.03]"
+      style="background-image: linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px); background-size:50px 50px;">
+    </div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <!-- badge -->
+      <div
+        class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-sm font-medium text-indigo-300 mb-8 animate-fade-in">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        Available for opportunities
+      </div>
+
+      <h1 class="font-space font-bold text-5xl md:text-7xl lg:text-8xl leading-none mb-6 animate-slide-up">
+        Hi, I'm <span class="gradient-text">Shaurya</span><br />Pratap
+      </h1>
+
+      <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-4 animate-slide-up"
+        style="animation-delay:0.15s">
+        B.Tech CSE Student &bull; <span class="text-indigo-300 font-medium">Co-founder @ BePrompter</span> &bull;
+        Builder
+      </p>
+      <p class="text-slate-500 text-base max-w-xl mx-auto mb-10 animate-slide-up" style="animation-delay:0.25s">
+        3rd Year at <strong class="text-slate-400">Silver Oak University</strong> · Passionate about building products
+        that matter.
+      </p>
+
+      <div class="flex items-center justify-center gap-4 flex-wrap animate-slide-up" style="animation-delay:0.35s">
+        <a href="#projects"
+          class="btn-primary text-white font-semibold px-8 py-3 rounded-full text-sm flex items-center gap-2">
+          View Projects <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+        <a href="#contact" class="btn-outline text-slate-300 font-semibold px-8 py-3 rounded-full text-sm">
+          Get in Touch
+        </a>
+        <a href="event.html"
+          class="text-amber-300 font-semibold px-8 py-3 rounded-full text-sm flex items-center gap-2 transition-all hover:text-amber-200"
+          style="border:1.5px solid rgba(245,158,11,0.45);background:rgba(245,158,11,0.07)">
+          <i class="fa-solid fa-calendar-star text-xs"></i> TechNova Event
+        </a>
+      </div>
+
+      <!-- floating social links -->
+      <div class="flex items-center justify-center gap-6 mt-12 animate-fade-in" style="animation-delay:0.5s">
+        <a href="https://github.com/shauryap001" target="_blank"
+          class="text-slate-500 hover:text-white transition text-xl"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/shauryapratap" target="_blank"
+          class="text-slate-500 hover:text-indigo-400 transition text-xl"><i class="fab fa-linkedin"></i></a>
+        <a href="https://beprompter.in" target="_blank"
+          class="text-slate-500 hover:text-purple-400 transition text-xl"><i class="fa-solid fa-globe"></i></a>
+        <a href="mailto:shaurya@example.com" class="text-slate-500 hover:text-pink-400 transition text-xl"><i
+            class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <!-- scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-slate-600">
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </div>
+  </section>
+
+  <!-- ══════════════ ABOUT ══════════════ -->
+  <section id="about" class="py-28 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="section-reveal grid md:grid-cols-2 gap-16 items-center">
+        <!-- avatar card -->
+        <div class="flex justify-center md:justify-start">
+          <div class="relative animate-float">
+            <div class="w-64 h-64 rounded-3xl glass flex items-center justify-center animate-glow"
+              style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(168,85,247,0.1))">
+              <span class="font-space font-bold text-8xl gradient-text">SP</span>
+            </div>
+            <!-- floating tags -->
+            <div
+              class="absolute -top-4 -right-4 glass rounded-xl px-3 py-2 text-xs font-semibold text-indigo-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-graduation-cap text-indigo-400"></i> B.Tech CSE
+            </div>
+            <div
+              class="absolute -bottom-4 -left-4 glass rounded-xl px-3 py-2 text-xs font-semibold text-purple-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-rocket text-purple-400"></i> Co-Founder
+            </div>
+          </div>
+        </div>
+
+        <!-- text -->
+        <div>
+          <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">About Me</p>
+          <h2 class="font-space font-bold text-4xl md:text-5xl text-white mb-6">Turning Ideas into <span
+              class="gradient-text">Reality</span></h2>
+          <p class="text-slate-400 leading-relaxed mb-5">
+            I'm <strong class="text-white">Shaurya Pratap</strong>, a passionate 3rd-year B.Tech Computer Science &
+            Engineering student at <strong class="text-indigo-300">Silver Oak University</strong>. I love building
+            software that creates real-world impact.
+          </p>
+          <p class="text-slate-400 leading-relaxed mb-8">
+            As the <strong class="text-purple-300">Co-founder of BePrompter</strong> (<a href="https://beprompter.in"
+              target="_blank"
+              class="text-indigo-400 underline underline-offset-2 hover:text-indigo-300">beprompter.in</a>), I've been
+            at the forefront of building AI-powered tools that help people craft better prompts. I'm deeply interested
+            in full-stack development, AI/ML, and entrepreneurship.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="tag text-indigo-300">🎓 Silver Oak University</span>
+            <span class="tag text-purple-300">🚀 BePrompter</span>
+            <span class="tag text-pink-300">💡 AI Enthusiast</span>
+            <span class="tag text-green-300">🛠 Full-Stack Dev</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SKILLS ══════════════ -->
+  <section id="skills" class="py-28 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="section-reveal text-center mb-16">
+        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">What I Know</p>
+        <h2 class="font-space font-bold text-4xl md:text-5xl text-white">Skills &amp; <span
+            class="gradient-text">Technologies</span></h2>
+      </div>
+
+      <div class="section-reveal grid md:grid-cols-2 gap-10">
+        <!-- Technical -->
+        <div class="glass rounded-2xl p-8">
+          <h3 class="font-space font-semibold text-lg text-white mb-6 flex items-center gap-2"><i
+              class="fa-solid fa-code text-indigo-400"></i> Technical Skills</h3>
+          <div class="space-y-5">
+            <div>
+              <div class="flex justify-between text-sm text-slate-300 mb-1.5"><span>HTML / CSS</span><span
+                  class="text-indigo-400">90%</span></div>
+              <div class="skill-bar">
+                <div class="skill-fill" data-width="90" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm text-slate-300 mb-1.5"><span>JavaScript</span><span
+                  class="text-indigo-400">80%</span></div>
+              <div class="skill-bar">
+                <div class="skill-fill" data-width="80" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm text-slate-300 mb-1.5"><span>React / Next.js</span><span
+                  class="text-indigo-400">75%</span></div>
+              <div class="skill-bar">
+                <div class="skill-fill" data-width="75" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm text-slate-300 mb-1.5"><span>Python</span><span
+                  class="text-indigo-400">70%</span></div>
+              <div class="skill-bar">
+                <div class="skill-fill" data-width="70" style="width:0"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm text-slate-300 mb-1.5"><span>Node.js / Supabase</span><span
+                  class="text-indigo-400">65%</span></div>
+              <div class="skill-bar">
+                <div class="skill-fill" data-width="65" style="width:0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other skills -->
+        <div class="space-y-6">
+          <!-- Tools -->
+          <div class="glass rounded-2xl p-6">
+            <h3 class="font-space font-semibold text-lg text-white mb-4 flex items-center gap-2"><i
+                class="fa-solid fa-wrench text-purple-400"></i> Tools &amp; Platforms</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag text-slate-300">Git &amp; GitHub</span>
+              <span class="tag text-slate-300">VS Code</span>
+              <span class="tag text-slate-300">Tailwind CSS</span>
+              <span class="tag text-slate-300">Figma</span>
+              <span class="tag text-slate-300">Supabase</span>
+              <span class="tag text-slate-300">Vercel</span>
+              <span class="tag text-slate-300">Postman</span>
+            </div>
+          </div>
+          <!-- Soft -->
+          <div class="glass rounded-2xl p-6">
+            <h3 class="font-space font-semibold text-lg text-white mb-4 flex items-center gap-2"><i
+                class="fa-solid fa-lightbulb text-yellow-400"></i> Soft Skills</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag text-slate-300">Entrepreneurship</span>
+              <span class="tag text-slate-300">Team Leadership</span>
+              <span class="tag text-slate-300">Problem Solving</span>
+              <span class="tag text-slate-300">Communication</span>
+              <span class="tag text-slate-300">Product Thinking</span>
+            </div>
+          </div>
+          <!-- Currently learning -->
+          <div class="glass rounded-2xl p-6">
+            <h3 class="font-space font-semibold text-lg text-white mb-4 flex items-center gap-2"><i
+                class="fa-solid fa-spinner text-green-400"></i> Currently Learning</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag text-slate-300">AI/ML</span>
+              <span class="tag text-slate-300">LLM APIs</span>
+              <span class="tag text-slate-300">TypeScript</span>
+              <span class="tag text-slate-300">Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ PROJECTS ══════════════ -->
+  <section id="projects" class="py-28 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="section-reveal text-center mb-16">
+        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">What I've Built</p>
+        <h2 class="font-space font-bold text-4xl md:text-5xl text-white">Featured <span
+            class="gradient-text">Projects</span></h2>
+        <p class="text-slate-500 mt-4 max-w-lg mx-auto">More projects coming soon — stay tuned!</p>
+      </div>
+
+      <div class="section-reveal grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- BePrompter -->
+        <div class="glass rounded-2xl p-6 card-hover col-span-full md:col-span-2">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center"
+              style="background:linear-gradient(135deg,#6366f1,#a855f7)">
+              <i class="fa-solid fa-wand-magic-sparkles text-white text-xl"></i>
+            </div>
+            <div class="flex gap-2">
+              <a href="https://beprompter.in" target="_blank"
+                class="text-slate-400 hover:text-white transition text-sm"><i
+                  class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+          <h3 class="font-space font-bold text-xl text-white mb-2">BePrompter <span
+              class="text-xs text-indigo-400 font-normal ml-2 bg-indigo-500/10 px-2 py-0.5 rounded-full">Co-founder</span>
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            An AI-powered prompt engineering platform that helps users craft, optimize, and manage better prompts for
+            Large Language Models. Built to bridge the gap between users and AI tools.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag text-indigo-300">AI / LLM</span>
+            <span class="tag text-purple-300">Web App</span>
+            <span class="tag text-pink-300">SaaS</span>
+            <span class="tag text-slate-300">Next.js</span>
+            <span class="tag text-slate-300">Supabase</span>
+          </div>
+        </div>
+
+        <!-- TechNova 2025 Event Page -->
+        <div class="glass rounded-2xl p-6 card-hover" style="border:1px solid rgba(245,158,11,0.15)">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center"
+              style="background:linear-gradient(135deg,#f59e0b,#ef4444)">
+              <i class="fa-solid fa-bolt text-white text-xl"></i>
+            </div>
+            <a href="event.html" class="text-slate-400 hover:text-amber-400 transition text-sm" title="Open Event Page">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+          <h3 class="font-space font-bold text-lg text-white mb-1">TechNova 2025 <span
+              class="text-xs text-amber-400 font-normal ml-1 bg-amber-500/10 px-2 py-0.5 rounded-full">Event Page</span>
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Responsive landing page for Silver Oak University's annual tech fest — countdown timer, schedule, speakers &
+            registration form.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="tag text-amber-300">HTML5</span>
+            <span class="tag text-slate-300">Tailwind CSS</span>
+            <span class="tag text-orange-300">Event Design</span>
+          </div>
+          <a href="event.html"
+            class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold text-sm transition">
+            <i class="fa-solid fa-eye text-xs"></i> View Event Page
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ CONTACT ══════════════ -->
+  <section id="contact" class="py-28 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="section-reveal text-center mb-12">
+        <p class="text-indigo-400 text-sm font-semibold tracking-widest uppercase mb-3">Let's Connect</p>
+        <h2 class="font-space font-bold text-4xl md:text-5xl text-white mb-4">Get in <span
+            class="gradient-text">Touch</span></h2>
+        <p class="text-slate-400">Whether it's a collaboration, opportunity, or just a hello — my inbox is always open.
+        </p>
+      </div>
+
+      <div class="section-reveal glass rounded-3xl p-8 md:p-12">
+        <form id="contact-form" class="space-y-5">
+          <div class="grid md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm text-slate-400 mb-1.5 font-medium">Your Name</label>
+              <input type="text" id="f-name" placeholder="John Doe" class="contact-input" required />
+            </div>
+            <div>
+              <label class="block text-sm text-slate-400 mb-1.5 font-medium">Email Address</label>
+              <input type="email" id="f-email" placeholder="john@example.com" class="contact-input" required />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm text-slate-400 mb-1.5 font-medium">Subject</label>
+            <input type="text" id="f-subject" placeholder="What's this about?" class="contact-input" />
+          </div>
+          <div>
+            <label class="block text-sm text-slate-400 mb-1.5 font-medium">Message</label>
+            <textarea id="f-msg" rows="5" placeholder="Your message here..." class="contact-input resize-none"
+              required></textarea>
+          </div>
+          <button type="submit"
+            class="btn-primary w-full text-white font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2">
+            <i class="fa-solid fa-paper-plane text-sm"></i> Send Message
+          </button>
+          <p id="form-msg" class="text-center text-sm text-green-400 hidden">✅ Message sent! I'll get back to you soon.
+          </p>
+        </form>
+      </div>
+
+      <!-- direct links -->
+      <div class="section-reveal flex flex-wrap gap-4 justify-center mt-10">
+        <a href="https://github.com/shauryap001" target="_blank"
+          class="glass rounded-xl px-5 py-3 flex items-center gap-2 text-slate-300 hover:text-white transition card-hover text-sm">
+          <i class="fab fa-github text-lg"></i> GitHub
+        </a>
+        <a href="https://linkedin.com/in/shauryapratap" target="_blank"
+          class="glass rounded-xl px-5 py-3 flex items-center gap-2 text-slate-300 hover:text-indigo-300 transition card-hover text-sm">
+          <i class="fab fa-linkedin text-lg text-indigo-400"></i> LinkedIn
+        </a>
+        <a href="https://beprompter.in" target="_blank"
+          class="glass rounded-xl px-5 py-3 flex items-center gap-2 text-slate-300 hover:text-purple-300 transition card-hover text-sm">
+          <i class="fa-solid fa-globe text-lg text-purple-400"></i> BePrompter
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="py-8 px-6 border-t border-white/5 text-center text-slate-600 text-sm">
+    <p>Designed &amp; built by <span class="text-indigo-400 font-medium">Shaurya Pratap</span> · 2025</p>
+    <p class="mt-1 text-xs">B.Tech CSE · Silver Oak University · Co-founder @ BePrompter</p>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.section-reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Animate skill bars
+          entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width + '%';
+          });
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Contact form
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const msg = document.getElementById('form-msg');
+      msg.classList.remove('hidden');
+      this.reset();
+      setTimeout(() => msg.classList.add('hidden'), 4000);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechNova 2025 | Silver Oak University Annual Tech Fest</title>
+    <meta name="description"
+        content="TechNova 2025 — Silver Oak University's flagship annual technology festival. Two days of innovation, talks, hackathons, and more." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'], space: ['Space Grotesk', 'sans-serif'] },
+                    animation: {
+                        'float': 'float 7s ease-in-out infinite',
+                        'pulse-slow': 'pulse 5s cubic-bezier(0.4,0,0.6,1) infinite',
+                        'slide-up': 'slideUp 0.8s ease forwards',
+                        'fade-in': 'fadeIn 1s ease forwards',
+                        'ticker': 'ticker 22s linear infinite',
+                    },
+                    keyframes: {
+                        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+                        slideUp: { '0%': { opacity: 0, transform: 'translateY(32px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+                        fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+                        ticker: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #05050d;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b, #ef4444, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-cool {
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card-glow:hover {
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.2), 0 8px 32px rgba(0, 0, 0, 0.5);
+            transform: translateY(-4px);
+        }
+
+        .card-transition {
+            transition: all 0.3s ease;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+        }
+
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .section-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #navbar {
+            transition: background 0.4s, box-shadow 0.4s;
+        }
+
+        #navbar.scrolled {
+            background: rgba(5, 5, 13, 0.9);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-bg {
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245, 158, 11, 0.12) 0%, rgba(239, 68, 68, 0.08) 40%, transparent 70%), #05050d;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #f59e0b, #ef4444, #ec4899, transparent);
+        }
+
+        .schedule-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+            flex-shrink: 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.05));
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .tag-amber {
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 999px;
+            padding: 2px 12px;
+            font-size: 0.78rem;
+            color: #fcd34d;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .btn-gold:hover {
+            opacity: 0.88;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-gold {
+            border: 1.5px solid rgba(245, 158, 11, 0.5);
+            transition: background 0.2s;
+        }
+
+        .btn-outline-gold:hover {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        input,
+        select,
+        textarea {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .reg-input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 11px 16px;
+            color: #e2e8f0;
+            width: 100%;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .reg-input:focus {
+            border-color: #f59e0b;
+        }
+
+        ::selection {
+            background: #f59e0b33;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #05050d;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 99px;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .highlight-card:hover {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(239, 68, 68, 0.05));
+            border-color: rgba(245, 158, 11, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .speaker-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 20px;
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .speaker-card:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(245, 158, 11, 0.15);
+        }
+
+        .avatar-ring {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 2rem;
+            margin: 0 auto;
+        }
+
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-content {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══════════ NAVBAR ══════════ -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#home" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+                    style="background:linear-gradient(135deg,#f59e0b,#ef4444)">
+                    <i class="fa-solid fa-bolt text-white text-sm"></i>
+                </div>
+                <span class="font-space font-bold text-white text-lg tracking-tight">TechNova<span
+                        class="text-amber-400">'25</span></span>
+            </a>
+            <!-- Desktop links -->
+            <div class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-400">
+                <a href="#about" class="hover:text-white transition">About</a>
+                <a href="#schedule" class="hover:text-white transition">Schedule</a>
+                <a href="#speakers" class="hover:text-white transition">Speakers</a>
+                <a href="#highlights" class="hover:text-white transition">Highlights</a>
+            </div>
+            <a href="#register" class="btn-gold text-white text-sm font-bold px-5 py-2 rounded-full">Register Now</a>
+        </div>
+    </nav>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section id="home"
+        class="hero-bg relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
+        <!-- orbs -->
+        <div class="orb w-96 h-96 bg-amber-500 opacity-15 top-0 left-1/4 animate-pulse-slow"></div>
+        <div class="orb w-72 h-72 bg-red-600 opacity-10 top-1/3 right-10 animate-pulse-slow" style="animation-delay:2s">
+        </div>
+        <div class="orb w-56 h-56 bg-pink-600 opacity-10 bottom-20 left-10 animate-pulse-slow"
+            style="animation-delay:1s"></div>
+        <!-- grid -->
+        <div class="absolute inset-0 opacity-[0.025]"
+            style="background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:48px 48px;">
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+            <!-- badge -->
+            <div
+                class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-sm font-semibold text-amber-400 mb-6 animate-fade-in">
+                <i class="fa-solid fa-star text-xs"></i>
+                Silver Oak University's Annual Tech Festival
+            </div>
+
+            <h1 class="font-space font-black text-6xl md:text-8xl lg:text-9xl leading-none mb-4 animate-slide-up">
+                TECH<span class="gradient-text">NOVA</span>
+            </h1>
+            <p class="font-space font-bold text-3xl md:text-5xl text-white/90 mb-6 animate-slide-up"
+                style="animation-delay:0.1s">2025</p>
+
+            <p class="text-slate-400 text-base md:text-lg max-w-xl mx-auto mb-3 animate-slide-up"
+                style="animation-delay:0.2s">
+                <i class="fa-solid fa-calendar-days text-amber-500 mr-1.5"></i> <strong class="text-white">March 14–15,
+                    2025</strong> &nbsp;|&nbsp;
+                <i class="fa-solid fa-location-dot text-red-400 mr-1.5"></i> <strong class="text-white">Silver Oak
+                    University, Ahmedabad</strong>
+            </p>
+            <p class="text-slate-500 text-sm mb-10 animate-fade-in" style="animation-delay:0.3s">Two days of innovation,
+                hackathons, talks & unforgettable experiences</p>
+
+            <!-- Countdown -->
+            <div id="countdown" class="flex items-center justify-center gap-3 md:gap-5 mb-10 animate-slide-up"
+                style="animation-delay:0.35s">
+                <div class="glass rounded-2xl px-4 md:px-6 py-4 text-center min-w-[70px]">
+                    <div id="cd-days" class="font-space font-black text-3xl md:text-4xl gradient-text">00</div>
+                    <div class="text-slate-500 text-xs mt-1">DAYS</div>
+                </div>
+                <span class="text-amber-500 font-bold text-2xl pb-4">:</span>
+                <div class="glass rounded-2xl px-4 md:px-6 py-4 text-center min-w-[70px]">
+                    <div id="cd-hours" class="font-space font-black text-3xl md:text-4xl gradient-text">00</div>
+                    <div class="text-slate-500 text-xs mt-1">HOURS</div>
+                </div>
+                <span class="text-amber-500 font-bold text-2xl pb-4">:</span>
+                <div class="glass rounded-2xl px-4 md:px-6 py-4 text-center min-w-[70px]">
+                    <div id="cd-mins" class="font-space font-black text-3xl md:text-4xl gradient-text">00</div>
+                    <div class="text-slate-500 text-xs mt-1">MINS</div>
+                </div>
+                <span class="text-amber-500 font-bold text-2xl pb-4">:</span>
+                <div class="glass rounded-2xl px-4 md:px-6 py-4 text-center min-w-[70px]">
+                    <div id="cd-secs" class="font-space font-black text-3xl md:text-4xl gradient-text">00</div>
+                    <div class="text-slate-500 text-xs mt-1">SECS</div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-4 flex-wrap animate-slide-up"
+                style="animation-delay:0.45s">
+                <a href="#register"
+                    class="btn-gold text-white font-bold px-8 py-3.5 rounded-full text-sm flex items-center gap-2 shadow-lg shadow-amber-900/30">
+                    <i class="fa-solid fa-ticket text-sm"></i> Register Free
+                </a>
+                <a href="#schedule"
+                    class="btn-outline-gold text-amber-300 font-semibold px-8 py-3.5 rounded-full text-sm">
+                    View Schedule
+                </a>
+            </div>
+        </div>
+
+        <!-- scroll hint -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-slate-600">
+            <i class="fa-solid fa-chevron-down text-sm"></i>
+        </div>
+    </section>
+
+    <!-- ══════════ TICKER ══════════ -->
+    <div class="py-3 overflow-hidden border-y border-amber-500/20" style="background:rgba(245,158,11,0.06)">
+        <div class="ticker-wrap">
+            <div class="ticker-content animate-ticker text-amber-400 font-semibold text-sm tracking-wider">
+                ⚡ HACKATHON &nbsp;·&nbsp; 🎤 TECH TALKS &nbsp;·&nbsp; 🤖 AI SHOWCASE &nbsp;·&nbsp; 🏆 COMPETITIONS
+                &nbsp;·&nbsp; 🎮 GAMING ZONE &nbsp;·&nbsp; 🎭 CULTURAL NIGHT &nbsp;·&nbsp; 💡 STARTUP PITCH
+                &nbsp;·&nbsp; 🔬 WORKSHOPS &nbsp;·&nbsp; 🎯 CODING CHALLENGE &nbsp;·&nbsp; 🚀 ROBOTICS EXPO
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ HACKATHON &nbsp;·&nbsp; 🎤 TECH TALKS &nbsp;·&nbsp; 🤖 AI SHOWCASE
+                &nbsp;·&nbsp; 🏆 COMPETITIONS &nbsp;·&nbsp; 🎮 GAMING ZONE &nbsp;·&nbsp; 🎭 CULTURAL NIGHT &nbsp;·&nbsp;
+                💡 STARTUP PITCH &nbsp;·&nbsp; 🔬 WORKSHOPS &nbsp;·&nbsp; 🎯 CODING CHALLENGE &nbsp;·&nbsp; 🚀 ROBOTICS
+                EXPO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ STATS ══════════ -->
+    <section class="py-16 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="section-reveal grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="font-space font-black text-4xl gradient-text mb-1">2K+</div>
+                    <div class="text-slate-400 text-sm">Participants</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="font-space font-black text-4xl gradient-text mb-1">30+</div>
+                    <div class="text-slate-400 text-sm">Events</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="font-space font-black text-4xl gradient-text mb-1">20+</div>
+                    <div class="text-slate-400 text-sm">Speakers</div>
+                </div>
+                <div class="stat-card rounded-2xl p-6 text-center">
+                    <div class="font-space font-black text-4xl gradient-text mb-1">₹5L</div>
+                    <div class="text-slate-400 text-sm">Prize Pool</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ ABOUT ══════════ -->
+    <section id="about" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-reveal grid md:grid-cols-2 gap-14 items-center">
+                <!-- visual -->
+                <div class="order-2 md:order-1 relative flex justify-center">
+                    <div class="relative animate-float">
+                        <div class="w-72 h-72 rounded-3xl flex items-center justify-center"
+                            style="background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(239,68,68,0.08));border:1px solid rgba(245,158,11,0.2)">
+                            <div class="text-center">
+                                <div class="text-7xl mb-3">🚀</div>
+                                <div class="font-space font-bold text-white text-lg">Innovation Awaits</div>
+                                <div class="text-slate-500 text-sm mt-1">March 14–15, 2025</div>
+                            </div>
+                        </div>
+                        <!-- floating badges -->
+                        <div
+                            class="absolute -top-5 -right-5 glass rounded-xl px-3 py-2 text-xs font-semibold text-amber-300 flex items-center gap-1.5 shadow-lg">
+                            <i class="fa-solid fa-trophy text-amber-400"></i> ₹5L Prize Pool
+                        </div>
+                        <div
+                            class="absolute -bottom-5 -left-5 glass rounded-xl px-3 py-2 text-xs font-semibold text-red-300 flex items-center gap-1.5 shadow-lg">
+                            <i class="fa-solid fa-users text-red-400"></i> 2000+ Students
+                        </div>
+                        <div
+                            class="absolute top-1/2 -right-10 glass rounded-xl px-3 py-2 text-xs font-semibold text-pink-300 flex items-center gap-1.5 shadow-lg">
+                            <i class="fa-solid fa-clock text-pink-400"></i> 2 Days
+                        </div>
+                    </div>
+                </div>
+
+                <!-- text -->
+                <div class="order-1 md:order-2">
+                    <p class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">About The Event</p>
+                    <h2 class="font-space font-bold text-4xl md:text-5xl text-white mb-5">Where Ideas <span
+                            class="gradient-text">Take Flight</span></h2>
+                    <p class="text-slate-400 leading-relaxed mb-4">
+                        <strong class="text-white">TechNova 2025</strong> is Silver Oak University's biggest annual
+                        technology extravaganza — a two-day fiesta packed with hackathons, expert talks, AI showcases,
+                        workshops, competitions and cultural nights.
+                    </p>
+                    <p class="text-slate-400 leading-relaxed mb-7">
+                        Whether you're a coder, designer, entrepreneur, or just curious — TechNova has something for
+                        you. Come learn, compete, network, and create the future of technology.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag-amber">⚡ Hackathon</span>
+                        <span class="tag-amber">🎤 Expert Talks</span>
+                        <span class="tag-amber">🤖 AI Showcase</span>
+                        <span class="tag-amber">💡 Startup Pitch</span>
+                        <span class="tag-amber">🏆 Competitions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ HIGHLIGHTS ══════════ -->
+    <section id="highlights" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-reveal text-center mb-14">
+                <p class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">What To Expect</p>
+                <h2 class="font-space font-bold text-4xl md:text-5xl text-white">Event <span
+                        class="gradient-text">Highlights</span></h2>
+            </div>
+            <div class="section-reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="highlight-card p-6 card-transition">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-2xl"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.1))">⚡</div>
+                    <h3 class="font-space font-bold text-lg text-white mb-2">24-Hr Hackathon</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Build, break, and ship real products. Teams of 2–4
+                        compete for a ₹1.5L top prize.</p>
+                </div>
+
+                <div class="highlight-card p-6 card-transition">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-2xl"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.1))">🎤</div>
+                    <h3 class="font-space font-bold text-lg text-white mb-2">Keynote Talks</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Industry veterans and innovators share insights on
+                        AI, Web3, startups, and the future of tech.</p>
+                </div>
+
+                <div class="highlight-card p-6 card-transition">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-2xl"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.1))">🤖</div>
+                    <h3 class="font-space font-bold text-lg text-white mb-2">AI Showcase</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">See live demos of student and startup AI projects
+                        — from chatbots to computer vision systems.</p>
+                </div>
+
+                <div class="highlight-card p-6 card-transition">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-2xl"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.1))">💡</div>
+                    <h3 class="font-space font-bold text-lg text-white mb-2">Startup Pitch</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Got an idea? Pitch it to real investors and
+                        mentors. Top pitches win seed funding and incubation support.</p>
+                </div>
+
+                <div class="highlight-card p-6 card-transition">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-2xl"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.1))">🔬</div>
+                    <h3 class="font-space font-bold text-lg text-white mb-2">Hands-on Workshops</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Learn Prompt Engineering, Cybersecurity,
+                        Full-Stack Dev, Robotics, and more in intensive workshops.</p>
+                </div>
+
+                <div class="highlight-card p-6 card-transition">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-2xl"
+                        style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.1))">🎭</div>
+                    <h3 class="font-space font-bold text-lg text-white mb-2">Cultural Night</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">End day one with an electrifying cultural night —
+                        music, performances, and networking under the stars.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ SCHEDULE ══════════ -->
+    <section id="schedule" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="section-reveal text-center mb-14">
+                <p class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">Plan Your Day</p>
+                <h2 class="font-space font-bold text-4xl md:text-5xl text-white">Event <span
+                        class="gradient-text">Schedule</span></h2>
+            </div>
+
+            <!-- Day tabs -->
+            <div class="section-reveal flex justify-center mb-10">
+                <div class="glass rounded-full p-1 flex gap-1" id="day-tabs">
+                    <button onclick="switchDay(1)" id="tab-day1"
+                        class="px-6 py-2 rounded-full text-sm font-semibold transition-all btn-gold text-white">Day 1 —
+                        Mar 14</button>
+                    <button onclick="switchDay(2)" id="tab-day2"
+                        class="px-6 py-2 rounded-full text-sm font-semibold text-slate-400 hover:text-white transition-all">Day
+                        2 — Mar 15</button>
+                </div>
+            </div>
+
+            <!-- Day 1 -->
+            <div id="day1-content" class="section-reveal space-y-4">
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">09:00 AM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Opening Ceremony & Inauguration</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Grand welcome by the Vice Chancellor · Lamp lighting ·
+                            Cultural performance</p>
+                        <span class="tag-amber mt-2 inline-block">🎪 Main Auditorium</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">10:30 AM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Keynote: "AI & the Future of Work"</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Dr. Anika Sharma, CTO — OpenAI India</p>
+                        <span class="tag-amber mt-2 inline-block">🎤 Tech Arena</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">12:00 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Hackathon Kickoff</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Problem statements revealed · Teams begin building · 24
+                            hours on the clock!</p>
+                        <span class="tag-amber mt-2 inline-block">⚡ Innovation Hub</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">02:00 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Workshops: Prompt Engineering & Cybersecurity</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Parallel hands-on sessions with industry mentors</p>
+                        <span class="tag-amber mt-2 inline-block">🔬 Workshop Halls A & B</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">04:30 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Startup Pitch Competition – Round 1</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Top 20 student startups pitch their ideas to investors
+                        </p>
+                        <span class="tag-amber mt-2 inline-block">💡 Seminar Hall</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">07:00 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">🎭 Cultural Night</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Music · Performances · Food stalls · Networking</p>
+                        <span class="tag-amber mt-2 inline-block">🌟 Open Amphitheater</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div id="day2-content" class="hidden space-y-4">
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">09:00 AM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Hackathon Continues + Mentor Sessions</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Teams refine projects · 1-on-1 mentoring with experts
+                        </p>
+                        <span class="tag-amber mt-2 inline-block">⚡ Innovation Hub</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">10:30 AM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Panel Discussion: "Building in the Age of AI"</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Founders & engineers from top tech companies share
+                            experiences</p>
+                        <span class="tag-amber mt-2 inline-block">🎤 Tech Arena</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">12:00 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Hackathon Submission & Judging</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Final code freeze · Demo presentations to judges</p>
+                        <span class="tag-amber mt-2 inline-block">⚡ Innovation Hub</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">02:00 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">AI Showcase & Robotics Exhibition</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Live demonstrations of AI projects and autonomous
+                            robots</p>
+                        <span class="tag-amber mt-2 inline-block">🤖 Exhibition Hall</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">04:00 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">Startup Pitch Finals & Investor Meets</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Top 5 startups pitch for seed funding and mentorship
+                        </p>
+                        <span class="tag-amber mt-2 inline-block">💡 Seminar Hall</span>
+                    </div>
+                </div>
+                <div class="glass rounded-2xl p-5 flex items-start gap-4 hover:border-amber-500/30 transition-all">
+                    <div class="text-amber-400 font-bold text-sm w-20 shrink-0 pt-0.5">06:00 PM</div>
+                    <div class="schedule-dot mt-1"></div>
+                    <div>
+                        <h4 class="text-white font-semibold">🏆 Grand Finale & Prize Distribution</h4>
+                        <p class="text-slate-400 text-sm mt-0.5">Winners announced · Certificates · Photo-ops · Closing
+                            ceremony</p>
+                        <span class="tag-amber mt-2 inline-block">🎪 Main Auditorium</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ SPEAKERS ══════════ -->
+    <section id="speakers" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-reveal text-center mb-14">
+                <p class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">Learn From The Best</p>
+                <h2 class="font-space font-bold text-4xl md:text-5xl text-white">Featured <span
+                        class="gradient-text">Speakers</span></h2>
+            </div>
+            <div class="section-reveal grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="speaker-card p-6 text-center card-transition">
+                    <div class="avatar-ring mb-4" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">AS</div>
+                    <h4 class="font-space font-bold text-white text-base">Dr. Anika Sharma</h4>
+                    <p class="text-amber-400 text-xs font-medium mt-0.5">CTO, OpenAI India</p>
+                    <p class="text-slate-500 text-xs mt-2 leading-relaxed">AI researcher · Ex-Google Brain · Forbes 30
+                        Under 30</p>
+                    <span class="tag-amber mt-3 inline-block">🎤 Keynote</span>
+                </div>
+
+                <div class="speaker-card p-6 text-center card-transition">
+                    <div class="avatar-ring mb-4" style="background:linear-gradient(135deg,#ef4444,#ec4899)">RM</div>
+                    <h4 class="font-space font-bold text-white text-base">Rahul Mehta</h4>
+                    <p class="text-amber-400 text-xs font-medium mt-0.5">Founder, TechStartup.io</p>
+                    <p class="text-slate-500 text-xs mt-2 leading-relaxed">Serial entrepreneur · Built 3 unicorns · YC
+                        alumni</p>
+                    <span class="tag-amber mt-3 inline-block">💡 Startup Talks</span>
+                </div>
+
+                <div class="speaker-card p-6 text-center card-transition">
+                    <div class="avatar-ring mb-4" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">PK</div>
+                    <h4 class="font-space font-bold text-white text-base">Priya Kapoor</h4>
+                    <p class="text-amber-400 text-xs font-medium mt-0.5">VP Eng, Microsoft India</p>
+                    <p class="text-slate-500 text-xs mt-2 leading-relaxed">Cloud & DevOps expert · 15 yrs at Big Tech ·
+                        Speaker at AWS re:Invent</p>
+                    <span class="tag-amber mt-3 inline-block">🔬 Workshop Lead</span>
+                </div>
+
+                <div class="speaker-card p-6 text-center card-transition">
+                    <div class="avatar-ring mb-4" style="background:linear-gradient(135deg,#8b5cf6,#38bdf8)">AJ</div>
+                    <h4 class="font-space font-bold text-white text-base">Arjun Joshi</h4>
+                    <p class="text-amber-400 text-xs font-medium mt-0.5">AI Lead, ISRO</p>
+                    <p class="text-slate-500 text-xs mt-2 leading-relaxed">Robotics & space tech · IIT Bombay PhD ·
+                        National award winner</p>
+                    <span class="tag-amber mt-3 inline-block">🚀 Panel Speaker</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ REGISTER ══════════ -->
+    <section id="register" class="py-24 px-6">
+        <div class="max-w-3xl mx-auto">
+            <!-- CTA banner -->
+            <div class="section-reveal rounded-3xl mb-10 p-8 md:p-10 text-center relative overflow-hidden"
+                style="background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(239,68,68,0.1));border:1px solid rgba(245,158,11,0.25)">
+                <div class="orb w-60 h-60 bg-amber-500 opacity-10 -top-10 -right-10 animate-pulse-slow"></div>
+                <div class="relative z-10">
+                    <p class="text-amber-400 text-sm font-semibold tracking-widest uppercase mb-3">Seats Filling Fast
+                    </p>
+                    <h2 class="font-space font-bold text-4xl md:text-5xl text-white mb-4">Register <span
+                            class="gradient-text">Now!</span></h2>
+                    <p class="text-slate-400 mb-2">Entry is <strong class="text-green-400">100% FREE</strong> for all
+                        Silver Oak University students.</p>
+                    <p class="text-slate-500 text-sm">Limited seats for workshops · External participants: ₹299 only</p>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="section-reveal glass rounded-3xl p-8 md:p-10">
+                <form id="reg-form" class="space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1.5 font-medium">Full Name *</label>
+                            <input type="text" id="r-name" placeholder="Shaurya Pratap" class="reg-input" required />
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1.5 font-medium">Email Address *</label>
+                            <input type="email" id="r-email" placeholder="you@university.edu" class="reg-input"
+                                required />
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1.5 font-medium">Phone Number</label>
+                            <input type="tel" id="r-phone" placeholder="+91 98765 43210" class="reg-input" />
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1.5 font-medium">College / University
+                                *</label>
+                            <input type="text" id="r-college" placeholder="Silver Oak University" class="reg-input"
+                                required />
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1.5 font-medium">Branch / Course</label>
+                            <input type="text" id="r-branch" placeholder="B.Tech CSE" class="reg-input" />
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1.5 font-medium">Year of Study</label>
+                            <select id="r-year" class="reg-input">
+                                <option value="" disabled selected>Select year</option>
+                                <option>1st Year</option>
+                                <option>2nd Year</option>
+                                <option>3rd Year</option>
+                                <option>4th Year</option>
+                                <option>Postgraduate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2 font-medium">Events Interested In</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                            <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer"><input
+                                    type="checkbox" class="accent-amber-400" /> Hackathon</label>
+                            <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer"><input
+                                    type="checkbox" class="accent-amber-400" /> Keynote Talks</label>
+                            <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer"><input
+                                    type="checkbox" class="accent-amber-400" /> Workshops</label>
+                            <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer"><input
+                                    type="checkbox" class="accent-amber-400" /> AI Showcase</label>
+                            <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer"><input
+                                    type="checkbox" class="accent-amber-400" /> Startup Pitch</label>
+                            <label class="flex items-center gap-2 text-sm text-slate-300 cursor-pointer"><input
+                                    type="checkbox" class="accent-amber-400" /> Cultural Night</label>
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="btn-gold w-full text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-900/20">
+                        <i class="fa-solid fa-ticket text-sm"></i> Confirm Registration
+                    </button>
+                    <p id="reg-success" class="text-center text-sm text-green-400 hidden">🎉 You're registered! Check
+                        your email for confirmation.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════ FOOTER ══════════ -->
+    <footer class="py-12 px-6 border-t border-white/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-10">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center"
+                            style="background:linear-gradient(135deg,#f59e0b,#ef4444)">
+                            <i class="fa-solid fa-bolt text-white text-sm"></i>
+                        </div>
+                        <span class="font-space font-bold text-white text-lg">TechNova'25</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed">Silver Oak University's annual tech festival —
+                        celebrating innovation, creativity, and the future of technology.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-slate-500 text-sm">
+                        <li><a href="#about" class="hover:text-amber-400 transition">About</a></li>
+                        <li><a href="#schedule" class="hover:text-amber-400 transition">Schedule</a></li>
+                        <li><a href="#speakers" class="hover:text-amber-400 transition">Speakers</a></li>
+                        <li><a href="#register" class="hover:text-amber-400 transition">Register</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Contact Us</h4>
+                    <ul class="space-y-2 text-slate-500 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-amber-500"></i>
+                            technova@silveroak.edu.in</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-amber-500"></i> +91 79 2601
+                            0000</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-amber-500"></i>
+                            Silver Oak University, Ahmedabad</li>
+                    </ul>
+                    <div class="flex gap-4 mt-5">
+                        <a href="#" class="text-slate-500 hover:text-amber-400 transition text-lg"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-amber-400 transition text-lg"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-amber-400 transition text-lg"><i
+                                class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-amber-400 transition text-lg"><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-slate-600 text-xs">
+                <p>© 2025 TechNova · Silver Oak University. All rights reserved.</p>
+                <p>Designed with ❤️ by the Technova Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+
+        // Countdown to March 14, 2025 09:00 IST
+        function updateCountdown() {
+            const target = new Date('2025-03-14T09:00:00+05:30').getTime();
+            const now = Date.now();
+            const diff = target - now;
+            if (diff <= 0) {
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-mins').textContent = '00';
+                document.getElementById('cd-secs').textContent = '00';
+                return;
+            }
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+            document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Day switcher
+        function switchDay(day) {
+            const d1 = document.getElementById('day1-content');
+            const d2 = document.getElementById('day2-content');
+            const t1 = document.getElementById('tab-day1');
+            const t2 = document.getElementById('tab-day2');
+            if (day === 1) {
+                d1.classList.remove('hidden'); d2.classList.add('hidden');
+                t1.classList.add('btn-gold', 'text-white'); t1.classList.remove('text-slate-400');
+                t2.classList.remove('btn-gold', 'text-white'); t2.classList.add('text-slate-400');
+            } else {
+                d2.classList.remove('hidden'); d1.classList.add('hidden');
+                t2.classList.add('btn-gold', 'text-white'); t2.classList.remove('text-slate-400');
+                t1.classList.remove('btn-gold', 'text-white'); t1.classList.add('text-slate-400');
+            }
+        }
+
+        // Scroll reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.section-reveal').forEach(el => observer.observe(el));
+
+        // Registration form
+        document.getElementById('reg-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const msg = document.getElementById('reg-success');
+            msg.classList.remove('hidden');
+            this.reset();
+            setTimeout(() => msg.classList.add('hidden'), 6000);
+        });
+    </script>
+</body>
+
+</html>
